@@ -1,0 +1,16 @@
+{
+  "name": "laga_mat",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "Kim Dudenhöfer",
+  "type": "commonjs",
+  "main": "install.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "pg": "^8.16.3"
+  }
+}
