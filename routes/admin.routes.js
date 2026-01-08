@@ -67,11 +67,52 @@ module.exports = (server) => {
                     })
                 }
             }
-        }
+        },
 
         //Route to update user
+        {
+            method: 'PUT',
+            path: '/admin/users/{id}',
+            handler: async(request, h) => {
+                const result = await adminController.updateUser(request.params.id, request.payload);
+                return h.response(result);
+            },
+            options: {
+                auth: {
+                    strategy: 'jwt',
+                    scope: ['admin']
+                },
+                validate: {
+                    params: Joi.object({
+                        id: Joi.number().integer().min(1).required()
+                    }),
+                    payload: Joi.object({
+                        role: Joi.string().min(1).max(15).required()
+                    })
+                }
+            }
+        },
 
-
+        //Route to delete user
+        {
+            method: 'DELETE',
+            path: '/admin/users/{id}',
+            handler: async(request, h) => {
+                const result = await adminController.deleteUser(request.params.id);
+                return h.response(result);
+            },
+            options: {
+                auth: {
+                    strategy: 'jwt',
+                    scope: ['admin']
+                },
+                validate: {
+                    params: Joi.object({
+                        id: Joi.number().integer().min(1).required()
+                    })
+                }
+            }
+        }
     ]);
 };
 

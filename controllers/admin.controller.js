@@ -30,6 +30,19 @@ exports.getUser = async function(data) {
 }
 
 //Updating user
-
+exports.updateUser = async function(id, data) {
+    try {
+        return await model.update(id, data);
+    } catch(error) {
+        throw error;
+    }
+}
 
 //Deleting user
+exports.deleteUser = async function(id) {
+    try {
+        return await model.delete(id);
+    } catch(error) {
+        throw error;
+    }
+}

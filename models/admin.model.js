@@ -39,6 +39,7 @@ exports.add = async function(data) {
 //Fetching specific user
 exports.find = async function(data) {
     try {
+
         const result = await client.query(`SELECT role, fname, lname, username FROM users WHERE user_id=$1`, [data]);
         return result.rows[0];
 
@@ -48,10 +49,13 @@ exports.find = async function(data) {
 }
 
 //Updating user
-exports.update = async function() {
+exports.update = async function(id, data) {
     try {
 
+        const { role } = data;
+        const result = await client.query(`UPDATE users SET role=$1 WHERE user_id=$2 RETURNING fname, role`, [role, id]);
 
+        return result.rows[0];
 
     } catch(error) {
         throw new Error ("Database error: " + error.message);
