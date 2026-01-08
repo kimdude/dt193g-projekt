@@ -55,6 +55,12 @@ module.exports = (server) => {
                 auth: {
                     strategy: 'jwt',
                     scope: ['user','admin']
+                },
+                validate: {
+                    payload: Joi.object({
+                        password: Joi.string().min(1).max(255).required(),
+                        newPassword: Joi.string().min(1).max(255).required(),
+                    })
                 }
             }
         }
