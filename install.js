@@ -38,7 +38,7 @@ client.query(`
         roll        VARCHAR(15) NOT NULL,
         fname       VARCHAR(10) NOT NULL,
         lname       VARCHAR(15) NOT NULL,
-        username    VARCHAR(25) NOT NULL,
+        username    VARCHAR(25) UNIQUE NOT NULL,
         password    VARCHAR(255) NOT NULL
     );
 `);

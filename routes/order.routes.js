@@ -5,7 +5,7 @@ const Hapi = require('@hapi/hapi');
 const Joi = require('joi');
 
 //Controller
-const productController = require('../controllers/product.controller');
+const orderController = require('../controllers/order.controller');
 
 //Admin routes
 module.exports = (server) => {

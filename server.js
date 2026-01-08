@@ -20,8 +20,9 @@ const init = async () => {
     require('./database/db');
 
     //Requiring routes
-    require('./routes/product.routes');
-    require('./routes/admin.routes');
+    require('./routes/product.routes')(server);
+    require('./routes/order.routes')(server);
+    require('./routes/admin.routes')(server);
 
     await server.start();
     console.log('Server running on %s', server.info.uri);
