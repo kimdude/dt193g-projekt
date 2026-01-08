@@ -14,6 +14,12 @@ module.exports = (server) => {
             handler: async(request, h) => {
                 const result = await adminController.getAllUsers();
                 return h.response(result);
+            },
+            config: {
+                auth: {
+                    strategy: 'jwt',
+                    scope: ['admin']
+                }
             }
         },
 
@@ -25,10 +31,16 @@ module.exports = (server) => {
                 const result = await adminController.addUser(request.payload);
                 return h.response(result);
             },
+            config: {
+                auth: {
+                    strategy: 'jwt',
+                    scope: ['admin']
+                }
+            },
             options: {
                 validate: {
                     payload: Joi.object({
-                        roll: Joi.string().min(1).max(15).required(),
+                        role: Joi.string().min(1).max(15).required(),
                         fname: Joi.string().min(1).max(10).required(),
                         lname: Joi.string().min(1).max(15).required(),
                         username: Joi.string().min(1).max(25).required(),

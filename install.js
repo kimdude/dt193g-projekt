@@ -35,7 +35,7 @@ client.query(`
 client.query(`
     CREATE TABLE users(
         user_id     SERIAL PRIMARY KEY,
-        roll        VARCHAR(15) NOT NULL,
+        role        VARCHAR(15) NOT NULL,
         fname       VARCHAR(10) NOT NULL,
         lname       VARCHAR(15) NOT NULL,
         username    VARCHAR(25) UNIQUE NOT NULL,
@@ -97,7 +97,7 @@ client.query(`
 
 //Adding test data
 client.query(`
-    INSERT INTO users(roll, fname, lname, username, password) 
+    INSERT INTO users(role, fname, lname, username, password) 
     VALUES
         ('admin', 'Lena', 'Lööf', 'lagerpersonal','test123');
 `);

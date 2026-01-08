@@ -8,7 +8,7 @@ const bcrypt = require('bcrypt');
 exports.findAll = async function() {
     try {
         
-        const result = await client.query(`SELECT roll, fname, lname, username FROM users;`);
+        const result = await client.query(`SELECT role, fname, lname, username FROM users;`);
         return (result).rows;
 
     } catch(error) {
@@ -20,15 +20,15 @@ exports.findAll = async function() {
 exports.add = async function(data) {
     try {
 
-        const {roll, fname, lname, username, password} = data;
+        const {role, fname, lname, username, password} = data;
 
         //Hashing password
         const hashedPassword = await bcrypt.hash(password, 10);
 
         //Inserting to database
         await client.query(
-            `INSERT INTO users (roll, fname, lname, username, password) VALUES ($1, $2, $3, $4, $5) RETURNING username;`, 
-            [roll, fname, lname, username, hashedPassword]
+            `INSERT INTO users (role, fname, lname, username, password) VALUES ($1, $2, $3, $4, $5) RETURNING username;`, 
+            [role, fname, lname, username, hashedPassword]
         );
 
     } catch(error) {
