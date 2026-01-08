@@ -25,5 +25,38 @@ module.exports = (server) => {
             }
         },
         
+        //Getting user info
+        {
+            method: 'GET',
+            path: '/user',
+            handler: async(request, h) => {
+                const userId = request.auth.credentials.id;
+                const result = await userController.findInfo(userId);
+                return h.response(result);
+            },
+            options: {
+                auth: {
+                    strategy: 'jwt',
+                    scope: ['user','admin']
+                }
+            }
+        },
+
+        //Updating password
+        {
+            method: 'PUT',
+            path: '/user',
+            handler: async(request, h) => {
+                const userId = request.auth.credentials.id;
+                const result = await userController.updatePassword(userId, request.payload);
+                return h.response(result);
+            },
+            options: {
+                auth: {
+                    strategy: 'jwt',
+                    scope: ['user','admin']
+                }
+            }
+        }
     ]);
 }

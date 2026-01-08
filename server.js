@@ -19,6 +19,7 @@ const validate = async function(decoded, request, h) {
         }
 
         const aboutUser = {
+            id: decoded.id,
             username: user.username,
             scope: [user.role]
         }
