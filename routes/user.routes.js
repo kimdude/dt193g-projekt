@@ -5,9 +5,9 @@ const Joi = require('joi');
 
 //User routes
 module.exports = (server) => {
-
-    //Login user
     server.route([
+
+        //Login user
         {
             method: 'POST',
             path: '/login',
@@ -23,6 +23,7 @@ module.exports = (server) => {
                     })
                 }
             }
-        }
-    ])
+        },
+        
+    ]);
 }

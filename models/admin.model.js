@@ -37,10 +37,10 @@ exports.add = async function(data) {
 }
 
 //Fetching specific user
-exports.find = async function() {
+exports.find = async function(data) {
     try {
-
-
+        const result = await client.query(`SELECT role, fname, lname, username FROM users WHERE user_id=$1`, [data]);
+        return result.rows[0];
 
     } catch(error) {
         throw new Error ("Database error: " + error.message);

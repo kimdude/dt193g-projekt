@@ -15,7 +15,7 @@ module.exports = (server) => {
                 const result = await adminController.getAllUsers();
                 return h.response(result);
             },
-            config: {
+            options: {
                 auth: {
                     strategy: 'jwt',
                     scope: ['admin']
@@ -31,13 +31,11 @@ module.exports = (server) => {
                 const result = await adminController.addUser(request.payload);
                 return h.response(result);
             },
-            config: {
+            options: {
                 auth: {
                     strategy: 'jwt',
                     scope: ['admin']
-                }
-            },
-            options: {
+                },
                 validate: {
                     payload: Joi.object({
                         role: Joi.string().min(1).max(15).required(),
@@ -51,10 +49,27 @@ module.exports = (server) => {
         },
 
         //Route to get specific user
+        {
+            method: 'GET',
+            path: '/admin/users/{id}',
+            handler: async(request, h) => {
+                const result = await adminController.getUser(request.params.id);
+                return h.response(result);
+            },
+            options: {
+                auth: {
+                    strategy: 'jwt',
+                    scope: ['admin']
+                },
+                validate: {
+                    params: Joi.object({
+                        id: Joi.number().integer().min(1).required()
+                    })
+                }
+            }
+        }
 
         //Route to update user
-
-        //Route to delete user
 
 
     ]);

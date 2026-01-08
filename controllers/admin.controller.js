@@ -11,13 +11,19 @@ exports.getAllUsers = async function() {
     }
 }
 
-//Getting specific user
-
-
 //Adding user
 exports.addUser = async function(data) {
     try {
         return await model.add(data);
+    } catch(error) {
+        throw error;
+    }
+}
+
+//Getting specific user
+exports.getUser = async function(data) {
+    try {
+        return await model.find(data);
     } catch(error) {
         throw error;
     }
