@@ -136,7 +136,25 @@ module.exports = (server) => {
         },
 
         //Delete product
-
+        {
+            method: 'DELETE',
+            path: '/products/{id}',
+            handler: async(request, h) => {
+                const result = await productController.deleteProduct(request.params.id);
+                return h.response(result);
+            },
+            options: {
+                auth: {
+                    strategy: 'jwt',
+                    scope: ['admin'],
+                },
+                validate: {
+                    params: Joi.object({
+                        id: Joi.number().integer().min(1).required()
+                    })
+                }
+            }
+        }
 
     ])
 }

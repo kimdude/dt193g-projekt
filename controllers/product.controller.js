@@ -24,3 +24,10 @@ exports.updateProduct = async function(id, data) {
 exports.updateAmount = async function(id, data) {
     return await model.update(id, data);
 }
+
+//Delete product
+exports.deleteProduct = async function(id) {
+    return await model.delete(id);
+}
+
+

@@ -99,6 +99,20 @@ exports.update = async function(id, data) {
 exports.delete = async function(id) {
     try{
 
+        await client.query(`
+            DELETE FROM ordered_products WHERE product_id=$1 RETURNING order_id;`,
+            [id]
+        );
+        
+        const result = await client.query(`
+            DELETE FROM products WHERE product_id=$1 RETURNING name;`,
+            [id]
+        );
+
+        if(result.rows.length === 0) return null;
+
+        return result.rows[0];
+
     } catch(error) {
         throw error;
     }
