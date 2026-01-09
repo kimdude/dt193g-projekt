@@ -118,6 +118,8 @@ För att lägga till en ny order skickas ett en array med produkter enligt följ
     }
 ```
 
+__totalPrice__ är den sammanlagda summan för produkten. I ovan exempel är 35000 alltså det sammanlagda priset för dem fem produkterna med id 2.
+
 Statusen för en order ges ett default värde av false, vilket betyder att den inte blivit levererad än. För att uppdatera den till true, att den blivit levererad, skickas ett object med PUT-metoden enligt följande:
 
 ```json
