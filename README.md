@@ -86,3 +86,42 @@ För att uppdatera en produkt skickas ett liknande objekt, men utan __status__ o
 
 
 ### Router för beställningar
+Följande router används för hantering av ordrar:
+
+| Metod     | Länk                | Resultat                                    |
+|-----------|---------------------|---------------------------------------------|
+| GET       | /orders             | Läs ut alla ordrar                          |
+| GET       | /orders/{id}        | Läs ut specifik order                       |
+| POST      | /orders             | Lägg till ny order                          |
+| PUT       | /orders/{id}        | Uppdatera status för order                  |
+| DELETE    | /orders  /{id}      | Ta bort order                               |
+
+För att lägga till en ny order skickas ett en array med produkter enligt följande struktur:
+
+```json
+    {
+        { 
+            "products":
+            [
+                {
+                    "product_id": 2,
+                    "amount": 5,
+                    "totalPrice": 35000
+                },
+                {
+                    "product_id": 1,
+                    "amount": 2,
+                    "totalPrice": 2000
+                } 
+            ]
+        }
+    }
+```
+
+Statusen för en order ges ett default värde av false, vilket betyder att den inte blivit levererad än. För att uppdatera den till true, att den blivit levererad, skickas ett object med PUT-metoden enligt följande:
+
+```json
+    {
+        "status": true
+    }
+```
