@@ -74,10 +74,39 @@ module.exports = (server) => {
                     })
                 }
             }
-        }
+        },
 
         //Update product
+        {
+            method: 'PUT',
+            path: '/products/{id}',
+            handler: async(request, h) => {
+                const productId = request.params.id;
+                const result = await productController.updateProduct(productId, request.payload);
 
+                return h.response(result);
+            },
+            options: {
+                auth: {
+                    strategy: 'jwt',
+                    scope: ['user','admin']
+                },
+                validate: {
+                    params: Joi.object({
+                        id: Joi.number().integer().min(1).required()
+                    }),
+                    payload: Joi.object({
+                        ean_code: Joi.string().min(8).max(13).required(), 
+                        name: Joi.string().min(1).max(50).required(), 
+                        label: Joi.string().min(1).max(30), 
+                        category: Joi.string().min(1).max(20).required(), 
+                        description: Joi.string().min(1).max(80), 
+                        price: Joi.number().integer().min(1).required(), 
+                        shelf_id: Joi.number()
+                    })
+                }
+            }
+        }
 
         //Update amount in stock
 

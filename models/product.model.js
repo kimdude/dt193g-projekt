@@ -32,14 +32,18 @@ exports.find = async function(id) {
     }
 }
 
+//Fetching shelfs
+
+
+
 //Adding product
 exports.add = async function(data) {
     try{
         const { ean_code, name, label, category, description, price, amount, status, shelf_id } = data;
 
-        const result = await client.query(`
+        await client.query(`
             INSERT INTO products(ean_code, name, label, category, description, price, amount, status, shelf_id)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING name`, 
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING name;`, 
             [ean_code, name, label, category, description, price, amount, status, shelf_id]
         );
 
@@ -51,13 +55,27 @@ exports.add = async function(data) {
 }
 
 //Editing product
-exports.edit = async function(id) {
+exports.edit = async function(id, data) {
     try{
+        const { ean_code, name, label, category, description, price, shelf_id } = data;
+
+        const result = await client.query(`
+            UPDATE products SET ean_code=$1, name=$2, label=$3, category=$4, description=$5, price=$6, shelf_id=$7 WHERE product_id=$8 RETURNING *;`,
+            [ean_code, name, label, category, description, price, shelf_id, id]
+        );
+
+        return result.rows;
 
     } catch(error) {
         throw new Error ("Database error: " + error.message);
     }
 }
+
+//Updating amount 
+
+
+//Updating status
+
 
 //Deleting product
 exports.delete = async function(id) {

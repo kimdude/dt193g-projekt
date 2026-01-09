@@ -14,3 +14,8 @@ exports.getProduct = async function(id) {
 exports.addProduct = async function(data) {
     return await model.add(data);
 }
+
+//Update product
+exports.updateProduct = async function(id, data) {
+    return await model.edit(id, data);
+}
