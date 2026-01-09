@@ -19,3 +19,8 @@ exports.addProduct = async function(data) {
 exports.updateProduct = async function(id, data) {
     return await model.edit(id, data);
 }
+
+//Update amount and status
+exports.updateAmount = async function(id, data) {
+    return await model.update(id, data);
+}

@@ -12,7 +12,7 @@ exports.findAll = async function() {
         return result.rows;
 
     } catch(error) {
-        throw new Error ("Database error: " + error.message);
+        throw error;
     }
 }
 
@@ -21,20 +21,23 @@ exports.find = async function(id) {
     try{
         const result = await client.query(`SELECT * FROM products WHERE product_id=$1;`, [id]);
 
-        if(result.rows.length === 0) {
-            return null;
-        }
+        if(result.rows.length === 0) return null;
 
         return result.rows[0];
         
     } catch(error) {
-        throw new Error ("Database error: " + error.message);
+        throw error;
     }
 }
 
 //Fetching shelfs
+exports.updateAmount = async function() {
+    try {
 
-
+    } catch(error) {
+        throw error;
+    }
+}
 
 //Adding product
 exports.add = async function(data) {
@@ -50,7 +53,7 @@ exports.add = async function(data) {
         return "Product added.";
 
     } catch(error) {
-        throw new Error ("Database error: " + error.message);
+        throw error;
     }
 }
 
@@ -64,24 +67,39 @@ exports.edit = async function(id, data) {
             [ean_code, name, label, category, description, price, shelf_id, id]
         );
 
+        if(!result) return null;
+
         return result.rows;
 
     } catch(error) {
-        throw new Error ("Database error: " + error.message);
+        throw error;
     }
 }
 
-//Updating amount 
+//Updating amount and status
+exports.update = async function(id, data) {
+    try {
+        const { amount, status } = data;
 
+        const result = await client.query(`
+            UPDATE products SET amount=$1, status=$2, added=NOW() WHERE product_id=$3 RETURNING name;`,
+            [amount, status, id]
+        );
 
-//Updating status
+        if(result.rows.length === 0) return null;
 
+        return result.rows[0];
+
+    } catch(error) {
+        throw error;
+    }
+}
 
 //Deleting product
 exports.delete = async function(id) {
     try{
 
     } catch(error) {
-        throw new Error ("Database error: " + error.message);
+        throw error;
     }
 }

@@ -68,7 +68,7 @@ module.exports = (server) => {
                         category: Joi.string().min(1).max(20).required(), 
                         description: Joi.string().min(1).max(80), 
                         price: Joi.number().integer().min(1).required(), 
-                        amount: Joi.number().integer().required(), 
+                        amount: Joi.number().integer().min(0).required(), 
                         status: Joi.string().min(1).required(), 
                         shelf_id: Joi.number()
                     })
@@ -106,13 +106,34 @@ module.exports = (server) => {
                     })
                 }
             }
-        }
+        },
 
         //Update amount in stock
+        {
+            method: 'PUT',
+            path: '/products/{id}/stock',
+            handler: async(request, h) => {
+                const productId = request.params.id;
+                const result = await productController.updateAmount(productId, request.payload);
 
-
-        //Update status
-
+                return h.response(result);
+            },
+            options: {
+                auth: {
+                    strategy: 'jwt',
+                    scope: ['user', 'admin']
+                },
+                validate: {
+                    params: Joi.object({
+                        id: Joi.number().integer().min(1).required()
+                    }),
+                    payload: Joi.object({
+                        amount: Joi.number().integer().min(0).required(),
+                        status: Joi.string().min(1).required()
+                    })
+                }
+            }
+        },
 
         //Delete product
 
