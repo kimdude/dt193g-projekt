@@ -16,6 +16,18 @@ exports.findAll = async function() {
     }
 }
 
+//Fetching shelfs
+exports.findShelfs = async function() {
+    try {
+        const result = await client.query(`SELECT * FROM shelf_units;`);
+
+        return result.rows;
+
+    } catch(error) {
+        throw error;
+    }
+}
+
 //Fetching specific product
 exports.find = async function(id) {
     try{
@@ -25,15 +37,6 @@ exports.find = async function(id) {
 
         return result.rows[0];
         
-    } catch(error) {
-        throw error;
-    }
-}
-
-//Fetching shelfs
-exports.updateAmount = async function() {
-    try {
-
     } catch(error) {
         throw error;
     }

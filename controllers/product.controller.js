@@ -5,6 +5,11 @@ exports.getAllProducts = async function() {
     return await model.findAll();
 }
 
+//Get all shelfs
+exports.getShelfs = async function() {
+    return await model.findShelfs();
+}
+
 //Get specific products
 exports.getProduct = async function(id) {
     return await model.find(id);

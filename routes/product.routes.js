@@ -26,6 +26,22 @@ module.exports = (server) => {
             }
         },
 
+        //Get all shelfs
+        {
+            method: 'GET',
+            path: '/shelfs',
+            handler: async(request, h) => {
+                const result = await productController.getShelfs();
+                return h.response(result);
+            },
+             options: {
+                auth: {
+                    strategy: 'jwt',
+                    scope: ['user', 'admin']
+                }
+            }
+        },
+
         //Get specific product
         {
             method: 'GET',
