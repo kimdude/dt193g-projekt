@@ -32,6 +32,7 @@ Följande router är endast tillgängliga för admin:
 | GET       | /admin/users/{id}   | Läs ut specifik användare                   |
 | POST      | /admin/users        | Skapa ny användare                          |
 | PUT       | /admin/users        | Uppdatera roll                              |
+| DELETE    | /products/{id}      | Ta bort produkt samt beställningsinfo       |
 
 För att skapa en ny användare med POST-metoden skickas objekt med följande struktur:
 ```json
@@ -53,5 +54,35 @@ För att uppdatera en användares roll med PUT-metoden skickas objekt med följa
 ```
 
 ### Router för produkter
+Följande router används för hantering av produkter:
+
+| Metod     | Länk                | Resultat                                    |
+|-----------|---------------------|---------------------------------------------|
+| GET       | /shelfs             | Läs ut hyllplan                             |
+| GET       | /products           | Läs ut alla produkter                       |
+| GET       | /products/{id}      | Läs ut specifik produkt                     |
+| POST      | /product            | Lägg till produkt                           |
+| PUT       | /products/{id}      | Uppdatera produktinfo                       |
+| PUT       | /products/{id}/stock| Uppdatera antal och lagerstatus             |
+| DELETE    | /products/{id}      | Ta bort produkt samt beställningsinfo       |
+
+DELETE tar även bort beställningsinformation om produkten och är därför endast tillgänglig för admin. För att skapa en ny produkt skickas ett objekt med följande struktur:
+
+```json
+    {
+        "ean_code": "1234567891111",
+        "name": "Exempel produkt",
+        "label": "Exempel märke",
+        "category": "Köksassistenter",
+        "description": "Tålig och prisvärd köksmaskin som passar alla.",
+        "price": 7399,
+        "amount": 15,
+        "status": "I lager",
+        "shelf_id": 4
+    }
+```
+
+För att uppdatera en produkt skickas ett liknande objekt, men utan __status__ och __amount__. För att uppdatera lagersaldu på en produkt skickas endast status och amount.
+
 
 ### Router för beställningar
