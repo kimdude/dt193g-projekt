@@ -5,46 +5,50 @@ const Hapi = require('@hapi/hapi');
 
 /* Product routes */
 //Fetching all products
-exports.findAllProducts = async function() {
+exports.findAll = async function() {
     try{
+        const result = await client.query(`SELECT * FROM products;`);
+        const products = result.rows[0];
 
-    } catch {
-        throw new Error ("Database error: " + error.message);
-    }
-}
+        return products;
 
-//Adding product
-exports.addProduct = async function() {
-    try{
-
-    } catch {
+    } catch(error) {
         throw new Error ("Database error: " + error.message);
     }
 }
 
 //Fetching specific product
-exports.findProduct = async function(id) {
+exports.find = async function(id) {
     try{
 
-    } catch {
+    } catch(error) {
+        throw new Error ("Database error: " + error.message);
+    }
+}
+
+//Adding product
+exports.add = async function() {
+    try{
+
+    } catch(error) {
         throw new Error ("Database error: " + error.message);
     }
 }
 
 //Editing product
-exports.editProduct = async function(id) {
+exports.edit = async function(id) {
     try{
 
-    } catch {
+    } catch(error) {
         throw new Error ("Database error: " + error.message);
     }
 }
 
 //Deleting product
-exports.deleteProduct = async function(id) {
+exports.delete = async function(id) {
     try{
 
-    } catch {
+    } catch(error) {
         throw new Error ("Database error: " + error.message);
     }
 }

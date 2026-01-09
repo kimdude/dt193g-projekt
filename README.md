@@ -13,7 +13,9 @@ API:et är kopplat till en PostgreSQL databas, hostad på Render. API:et är ska
 Alla användare har tilldelade roller. Användare kan ha två roller; __admin__ och __user__. Som user kan man läsa ut och hantera varor och beställningar. Admin har utöver det även tillgång till hantering av andvändare. Det innebär att admin kan läsa ut användare, skapa nya och tilldela roller.
 
 ### Router för användare
-Inloggade användare med tilldelad roll har åtkomst till router för produkter och beställningar. Följande router är till för att användare ska kunna hantera sin egna profil:
+Inloggade användare med tilldelad roll har åtkomst till router för produkter och beställningar. LÄNK TILL API:ET
+
+Följande router är till för att användare ska kunna hantera sin egna profil:
 
 | Metod     | Länk                | Resultat                                    |
 |-----------|---------------------|---------------------------------------------|

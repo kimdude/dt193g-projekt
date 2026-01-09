@@ -1,6 +1,5 @@
 'use strict'
 
-const client = require('../database/db');
 const Hapi = require('@hapi/hapi');
 const Joi = require('joi');
 
@@ -12,7 +11,20 @@ module.exports = (server) => {
     server.route([
 
         //Get all products
-
+        {
+            method: 'GET',
+            path: '/products',
+            handler: async(request, h) => {
+                const result = await productController.getAllProducts();
+                return h.response(result);
+            },
+            options: {
+                auth: {
+                    strategy: 'jwt',
+                    scope: ['user', 'admin']
+                }
+            }
+        }
 
         //Get specific product
 

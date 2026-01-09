@@ -55,7 +55,7 @@ exports.update = async function(id, data) {
         const { password, newPassword } = data;
 
         //Validating password
-        const result = await client.query(`SELECT * FROM users WHERE user_id=$1`,[id]);
+        const result = await client.query(`SELECT * FROM users WHERE user_id=$1;`,[id]);
         const user = result.rows[0];
 
         const passwordMatch = await bcrypt.compare(password, user.password);
@@ -66,7 +66,7 @@ exports.update = async function(id, data) {
         
         //Updating password 
         const hashedPassword = await bcrypt.hash(newPassword, 10);
-        await client.query(`UPDATE users SET password=$1 WHERE user_id=$2`,[hashedPassword, id]);
+        await client.query(`UPDATE users SET password=$1 WHERE user_id=$2;`,[hashedPassword, id]);
 
         return  "Password updated"
 
