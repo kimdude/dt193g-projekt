@@ -33,8 +33,17 @@ exports.find = async function(id) {
 }
 
 //Adding product
-exports.add = async function() {
+exports.add = async function(data) {
     try{
+        const { ean_code, name, label, category, description, price, amount, status, shelf_id } = data;
+
+        const result = await client.query(`
+            INSERT INTO products(ean_code, name, label, category, description, price, amount, status, shelf_id)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING name`, 
+            [ean_code, name, label, category, description, price, amount, status, shelf_id]
+        );
+
+        return "Product added.";
 
     } catch(error) {
         throw new Error ("Database error: " + error.message);

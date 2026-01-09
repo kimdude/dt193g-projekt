@@ -45,10 +45,36 @@ module.exports = (server) => {
                     })
                 }
             }
-        }
+        },
 
         //Add product
-
+        {
+            method: 'POST',
+            path: '/products',
+            handler: async(request, h) => {
+                const result = await productController.addProduct(request.payload);
+                return h.response(result);
+            },
+            options: {
+                auth: {
+                    strategy: 'jwt',
+                    scope: ['user', 'admin']
+                },
+                validate: {
+                    payload: Joi.object({
+                        ean_code: Joi.string().min(8).max(13).required(), 
+                        name: Joi.string().min(1).max(50).required(), 
+                        label: Joi.string().min(1).max(30), 
+                        category: Joi.string().min(1).max(20).required(), 
+                        description: Joi.string().min(1).max(80), 
+                        price: Joi.number().integer().min(1).required(), 
+                        amount: Joi.number().integer().required(), 
+                        status: Joi.string().min(1).required(), 
+                        shelf_id: Joi.number()
+                    })
+                }
+            }
+        }
 
         //Update product
 

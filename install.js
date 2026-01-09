@@ -53,10 +53,10 @@ client.query(`
 client.query(`
     CREATE TABLE products(
         product_id  SERIAL PRIMARY KEY,
-        ean_code    BIGINT UNIQUE,
+        ean_code    VARCHAR(13) UNIQUE,
         name        VARCHAR(50) NOT NULL,
         label       VARCHAR(30) NOT NULL,
-        category    VARCHAR(30) NOT NULL,
+        category    VARCHAR(20) NOT NULL,
         description VARCHAR(80),
         price       INT NOT NULL,
         amount      INT DEFAULT 0,
@@ -131,10 +131,10 @@ client.query(`
 client.query(`
     INSERT INTO products(ean_code, name, label, category, description, price, amount, status, shelf_id)
     VALUES  
-        (1234567891111, 'Köksmaskin Royal Blue','Ankarsrum', 'Köksassistenter', 'Tålig och prisvärd köksmaskin som passar alla.', 7399, 15, 'I lager', 4),
-        (1234567891112, 'Våffeljärn Svart', 'Champion', 'Våffeljärn', 'Dubbelt våffeljärn', 549, 8, 'I lager', 2),
-        (1234567891113, 'Våffeljärn Röd', 'Champion', 'Våffeljärn', 'Dubbelt våffeljärn', 549, 6, 'I lager', 2),
-        (1234567891114, 'Brödrost Röd 2 skivor', 'Smeg', 'Brödrost', 'Brödrost för 2 skivor i vintage stil.', 1996, 0, 'Beställd', 1);
+        ('1234567891111', 'Köksmaskin Royal Blue','Ankarsrum', 'Köksassistenter', 'Tålig och prisvärd köksmaskin som passar alla.', 7399, 15, 'I lager', 4),
+        ('1234567891112', 'Våffeljärn Svart', 'Champion', 'Våffeljärn', 'Dubbelt våffeljärn', 549, 8, 'I lager', 2),
+        ('1234567891113', 'Våffeljärn Röd', 'Champion', 'Våffeljärn', 'Dubbelt våffeljärn', 549, 6, 'I lager', 2),
+        ('1234567891114', 'Brödrost Röd 2 skivor', 'Smeg', 'Brödrost', 'Brödrost för 2 skivor i vintage stil.', 1996, 0, 'Beställd', 1);
 `);
 
 client.query(`

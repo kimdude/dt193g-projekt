@@ -9,3 +9,8 @@ exports.getAllProducts = async function() {
 exports.getProduct = async function(id) {
     return await model.find(id);
 }
+
+//Add product
+exports.addProduct = async function(data) {
+    return await model.add(data);
+}
