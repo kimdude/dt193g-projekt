@@ -1,52 +1,54 @@
 'use strict'
 
 const client = require('../database/db');
-const Hapi = require('@hapi/hapi');
+const Boom = require('@hapi/boom');
 
 /* Order routes */
 //Fetching all orders
 exports.findAll = async function() {
-    try {
-        const result = await client.query(`SELECT * FROM orders;`);
-        return result.rows;
+    const result = await client.query(`SELECT * FROM orders;`);
 
-    } catch(error) {
-        throw error;
-    }
+    //Boom error
+    if(result.rows.length === 0) return null;
+
+    return result.rows;
 }
 
 //Fetching specific order
 exports.find = async function(id) {
-    try {
-        const result = await client.query(`SELECT * FROM full_order WHERE order_id=$1;`, [id]);
+    const result = await client.query(`SELECT * FROM full_order WHERE order_id=$1;`, [id]);
 
-        if(result.rows.length === 0) return null;
+    //Boom error
+    if(result.rows.length === 0) throw Boom.notFound('Order not found');
 
-        return result.rows;
-
-    } catch(error) {
-        throw error;
-    }
+    return result.rows;
 }
 
 //Adding order
 exports.add = async function(id, data) {
-    try {
-        const { products } = data; 
-        let status = false;
+    const { products } = data; 
+    let status = false;
 
-        const order = await client.query(`INSERT INTO orders(status, user_id) VALUES ($1, $2) RETURNING order_id;`, [status, id]);
-        const orderId = order.rows[0].order_id;
+    const order = await client.query(`INSERT INTO orders(status, user_id) VALUES ($1, $2) RETURNING order_id;`, [status, id]);
+    const orderId = order.rows[0].order_id;
 
-        for(const product of products) {
-            await client.query(`INSERT INTO ordered_products(order_id, product_id, amount, price) VALUES ($1, $2 , $3, $4);`, [orderId, product.product_id, product.amount, product.totalPrice]);
-        }
+    for(const product of products) {
+        let addedProduct = await client.query(`
+            INSERT INTO ordered_products(order_id, product_id, amount, price) VALUES ($1, $2 , $3, $4);`, 
+            [orderId, product.product_id, product.amount, product.totalPrice]);
 
-        return "Order has been added."
-
-    } catch(error) {
-        throw error;
+            if(addedProduct.rows.length === 0) throw Boom.notFound('Product not found.');
     }
+
+    const result = await client.query(`
+        SELECT * FROM full_order WHERE order_id=$1`,
+        [orderId]
+    );
+
+    //Boom error
+    if(result.rows.length === 0) throw Boom.conflict('A conflict occurred.');
+
+    return result.rows;
 }
 
 //Updating order
@@ -56,7 +58,8 @@ exports.update = async function(id, data) {
 
         const result = await client.query(`UPDATE orders SET status=$1, date=NOW() WHERE order_id=$2 RETURNING *`, [status, id]);
 
-        if(result.rows.length === 0) return "Invalid order ID.";
+        //Boom error
+        if(result.rows.length === 0) throw Boom.notFound('Order not found');
 
         return result.rows[0];
 
@@ -72,7 +75,8 @@ exports.delete = async function(id) {
 
         const result = await client.query(`DELETE FROM orders WHERE order_id=$1 RETURNING *`, [id]);
 
-        if(result.rows.length === 0) return "Invalid order ID.";
+        //Boom error
+        if(result.rows.length === 0) throw Boom.notFound('Order not found');
 
         return result.rows[0]
 

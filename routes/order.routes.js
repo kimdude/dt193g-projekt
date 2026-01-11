@@ -87,7 +87,7 @@ module.exports = (server) => {
             path: '/orders/{id}',
             handler: async(request, h) => {
                 const result = await orderController.updateOrder(request.params.id, request.payload);
-                return h.response({ result }).code(200);
+                return h.response({ message: "Order updated: " + result.order_id }).code(200);
             },
             options: {
                 auth: {
@@ -111,7 +111,7 @@ module.exports = (server) => {
             path: '/orders/{id}',
             handler: async(request, h) => {
                 const result = await orderController.deleteOrder(request.params.id);
-                return h.response({ result }).code(200);
+                return h.response({ message: "Order deleted: " + result.order_id }).code(200);
             },
             options: {
                 auth: {
