@@ -13,7 +13,7 @@ module.exports = (server) => {
             path: '/login',
             handler: async(request, h) => {
                 const result = await userController.findUser(request.payload);
-                return h.response(result);
+                return h.response({ result }).code(200);
             },
             options: {
                 validate: {
@@ -32,7 +32,7 @@ module.exports = (server) => {
             handler: async(request, h) => {
                 const userId = request.auth.credentials.id;
                 const result = await userController.findInfo(userId);
-                return h.response(result);
+                return h.response({ result }).code(200);
             },
             options: {
                 auth: {
@@ -49,7 +49,7 @@ module.exports = (server) => {
             handler: async(request, h) => {
                 const userId = request.auth.credentials.id;
                 const result = await userController.updatePassword(userId, request.payload);
-                return h.response(result);
+                return h.response({ message: "User updated: " + result.username }).code(200);
             },
             options: {
                 auth: {

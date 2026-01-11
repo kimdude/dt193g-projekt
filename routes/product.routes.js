@@ -16,7 +16,7 @@ module.exports = (server) => {
             path: '/products',
             handler: async(request, h) => {
                 const result = await productController.getAllProducts();
-                return h.response(result);
+                return h.response({ result }).code(200);
             },
             options: {
                 auth: {
@@ -32,7 +32,7 @@ module.exports = (server) => {
             path: '/shelfs',
             handler: async(request, h) => {
                 const result = await productController.getShelfs();
-                return h.response(result);
+                return h.response({ result }).code(200);
             },
              options: {
                 auth: {
@@ -48,7 +48,7 @@ module.exports = (server) => {
             path: '/products/{id}',
             handler: async(request, h) => {
                 const result = await productController.getProduct(request.params.id);
-                return h.response(result);
+                return h.response({ result }).code(200);
             },
             options: {
                 auth: {
@@ -69,7 +69,7 @@ module.exports = (server) => {
             path: '/products',
             handler: async(request, h) => {
                 const result = await productController.addProduct(request.payload);
-                return h.response(result);
+                return h.response({ result }).code(200);
             },
             options: {
                 auth: {
@@ -100,7 +100,7 @@ module.exports = (server) => {
                 const productId = request.params.id;
                 const result = await productController.updateProduct(productId, request.payload);
 
-                return h.response(result);
+                return h.response({ result }).code(200);
             },
             options: {
                 auth: {
@@ -132,7 +132,7 @@ module.exports = (server) => {
                 const productId = request.params.id;
                 const result = await productController.updateAmount(productId, request.payload);
 
-                return h.response(result);
+                return h.response({ result }).code(200);
             },
             options: {
                 auth: {
@@ -157,7 +157,7 @@ module.exports = (server) => {
             path: '/products/{id}',
             handler: async(request, h) => {
                 const result = await productController.deleteProduct(request.params.id);
-                return h.response(result);
+                return h.response({ result }).code(200);
             },
             options: {
                 auth: {

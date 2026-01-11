@@ -13,7 +13,7 @@ module.exports = (server) => {
             path: '/admin/users',
             handler: async(request, h) => {
                 const result = await adminController.getAllUsers();
-                return h.response(result);
+                return h.response({ result }).code(200);
             },
             options: {
                 auth: {
@@ -29,7 +29,7 @@ module.exports = (server) => {
             path: '/admin/users',
             handler: async(request, h) => {
                 const result = await adminController.addUser(request.payload);
-                return h.response(result);
+                return h.response({ message: "User added: " + result.username }).code(200);
             },
             options: {
                 auth: {
@@ -54,7 +54,7 @@ module.exports = (server) => {
             path: '/admin/users/{id}',
             handler: async(request, h) => {
                 const result = await adminController.getUser(request.params.id);
-                return h.response(result);
+                return h.response({ result }).code(200);
             },
             options: {
                 auth: {
@@ -75,7 +75,7 @@ module.exports = (server) => {
             path: '/admin/users/{id}',
             handler: async(request, h) => {
                 const result = await adminController.updateUser(request.params.id, request.payload);
-                return h.response(result);
+                return h.response({ message: "User updated: " + result.username }).code(200);
             },
             options: {
                 auth: {
@@ -88,27 +88,6 @@ module.exports = (server) => {
                     }),
                     payload: Joi.object({
                         role: Joi.string().min(1).max(15).required()
-                    })
-                }
-            }
-        },
-
-        //Route to delete user
-        {
-            method: 'DELETE',
-            path: '/admin/users/{id}',
-            handler: async(request, h) => {
-                const result = await adminController.deleteUser(request.params.id);
-                return h.response(result);
-            },
-            options: {
-                auth: {
-                    strategy: 'jwt',
-                    scope: ['admin']
-                },
-                validate: {
-                    params: Joi.object({
-                        id: Joi.number().integer().min(1).required()
                     })
                 }
             }

@@ -17,7 +17,7 @@ module.exports = (server) => {
             path: '/orders',
             handler: async(request, h) => {
                 const result = await orderController.getAllOrders();
-                return h.response(result);
+                return h.response({ result }).code(200);
             },
             options: {
                 auth: {
@@ -33,7 +33,7 @@ module.exports = (server) => {
             path: '/orders/{id}',
             handler: async(request, h) => {
                 const result = await orderController.getOrder(request.params.id);
-                return h.response(result);
+                return h.response({ result }).code(200);
             },
             options: {
                 auth: {
@@ -56,7 +56,7 @@ module.exports = (server) => {
                 const userId = request.auth.credentials.id;
 
                 const result = await orderController.addOrder(userId, request.payload);
-                return h.response(result);
+                return h.response({ result }).code(200);
                 
             },
             options: {
@@ -87,7 +87,7 @@ module.exports = (server) => {
             path: '/orders/{id}',
             handler: async(request, h) => {
                 const result = await orderController.updateOrder(request.params.id, request.payload);
-                return h.response(result);
+                return h.response({ result }).code(200);
             },
             options: {
                 auth: {
@@ -111,7 +111,7 @@ module.exports = (server) => {
             path: '/orders/{id}',
             handler: async(request, h) => {
                 const result = await orderController.deleteOrder(request.params.id);
-                return h.response(result);
+                return h.response({ result }).code(200);
             },
             options: {
                 auth: {
