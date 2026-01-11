@@ -1,6 +1,5 @@
 'use strict'
 
-const Hapi = require('@hapi/hapi');
 const Joi = require('joi');
 
 //Controller
@@ -69,7 +68,7 @@ module.exports = (server) => {
             path: '/products',
             handler: async(request, h) => {
                 const result = await productController.addProduct(request.payload);
-                return h.response({ result }).code(200);
+                return h.response({ message: "Product added: " + result.name }).code(200);
             },
             options: {
                 auth: {
@@ -132,7 +131,7 @@ module.exports = (server) => {
                 const productId = request.params.id;
                 const result = await productController.updateAmount(productId, request.payload);
 
-                return h.response({ result }).code(200);
+                return h.response({ message: "Product updated: " + result.name }).code(200);
             },
             options: {
                 auth: {
@@ -157,7 +156,7 @@ module.exports = (server) => {
             path: '/products/{id}',
             handler: async(request, h) => {
                 const result = await productController.deleteProduct(request.params.id);
-                return h.response({ result }).code(200);
+                return h.response({ message: "Product deleted: " + result.name }).code(200);
             },
             options: {
                 auth: {

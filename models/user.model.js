@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const Boom = require('@hapi/boom');
 
+/* User routes */
 //Logging in user
 exports.find = async function(data) {
     const { username, password } = data;
