@@ -7,6 +7,15 @@ const Joi = require('joi');
 module.exports = (server) => {
     server.route([
 
+        //Welcome
+        {
+            method: 'GET',
+            path: '/',
+            handler: async(request, h) => {
+                return h.response({ message: "Welcome!" });
+            }
+        },
+
         //Login user
         {
             method: 'POST',
