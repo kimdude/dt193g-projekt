@@ -1,7 +1,9 @@
 # DT193G - Projekt
 ## API för återförsäljare av köksapparater
 
-Detta repo innehåller källkod för ett API som möjliggör lagring av användare, varor och beställningar. För att få åtkomst till routerna måste man logga in:
+Detta repo innehåller källkod för ett API som möjliggör lagring av användare, varor och beställningar/inköp. Grundlänken för api:et är [https://dt193g-projekt.onrender.com/](https://dt193g-projekt.onrender.com/).
+
+För att få åtkomst till routerna måste man logga in:
 
 | Metod     | Länk                | Resultat                                    |
 |-----------|---------------------|---------------------------------------------|
