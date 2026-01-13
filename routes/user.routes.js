@@ -47,7 +47,7 @@ module.exports = (server) => {
                 auth: {
                     strategy: 'jwt',
                     scope: ['user','admin']
-                }
+                },
             }
         },
 
