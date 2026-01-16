@@ -30,9 +30,12 @@ module.exports = (server) => {
         //Get specific order
         {
             method: 'GET',
-            path: '/orders/{id}',
+            path: '/orders/order',
             handler: async(request, h) => {
-                const result = await orderController.getOrder(request.params.id);
+                const orderId = request.query.orderId;
+                const productId = request.query.productId;
+
+                const result = await orderController.getOrder(orderId, productId);
                 return h.response({ result }).code(200);
             },
             options: {
@@ -41,8 +44,9 @@ module.exports = (server) => {
                     scope: ['user', 'admin']
                 },
                 validate: {
-                    params: Joi.object({
-                        id: Joi.number().integer().min(1).required()
+                    query: Joi.object({
+                        orderId: Joi.number().integer().min(1),
+                        productId: Joi.number().integer().min(1)
                     })
                 }
             }

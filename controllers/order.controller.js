@@ -1,4 +1,5 @@
 const model = require('../models/order.model');
+const Boom = require('@hapi/boom');
 
 //Getting all orders
  exports.getAllOrders = async function(){
@@ -6,8 +7,9 @@ const model = require('../models/order.model');
 }
 
 //Getting specific order
-exports.getOrder = async function(id){
-    return await model.find(id);
+exports.getOrder = async function(orderId, productId){
+    if(orderId === null && productId === null || orderId === undefined && productId === undefined) throw Boom.badRequest('Must query either orderId or productId in URL.');
+    else return await model.find(orderId, productId);
 }
 
 //Adding order

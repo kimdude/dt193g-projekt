@@ -15,8 +15,15 @@ exports.findAll = async function() {
 }
 
 //Fetching specific order
-exports.find = async function(id) {
-    const result = await client.query(`SELECT * FROM full_order WHERE order_id=$1;`, [id]);
+exports.find = async function(orderId, productId) {
+
+    let result;
+
+    if(orderId !== null || orderId !== undefined) {
+        result = await client.query(`SELECT * FROM full_order WHERE order_id=$1;`, [orderId]);
+    } else {
+        result = await client.query(`SELECT * FROM full_order WHERE product_id=$1;`, [productId]);
+    }
 
     //Boom error
     if(result.rows.length === 0) throw Boom.notFound('Order not found');
