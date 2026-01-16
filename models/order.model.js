@@ -19,7 +19,7 @@ exports.find = async function(orderId, productId) {
 
     let result;
 
-    if(orderId !== null || orderId !== undefined) {
+    if(orderId !== null && orderId !== undefined) {
         result = await client.query(`SELECT * FROM full_order WHERE order_id=$1;`, [orderId]);
     } else {
         result = await client.query(`SELECT * FROM full_order WHERE product_id=$1;`, [productId]);
