@@ -90,13 +90,13 @@ För att uppdatera en produkt skickas ett liknande objekt, men utan __status__ o
 ### Router för beställningar
 Följande router används för hantering av ordrar:
 
-| Metod     | Länk                | Resultat                                    |
-|-----------|---------------------|---------------------------------------------|
-| GET       | /orders             | Läs ut alla ordrar                          |
-| GET       | /orders/{id}        | Läs ut specifik order                       |
-| POST      | /orders             | Lägg till ny order                          |
-| PUT       | /orders/{id}        | Uppdatera status för order                  |
-| DELETE    | /orders  /{id}      | Ta bort order                               |
+| Metod     | Länk                            | Resultat                                                               |
+|-----------|---------------------------------|------------------------------------------------------------------------|
+| GET       | /orders                         | Läs ut alla ordrar                                                     |
+| GET       | /orders/order?orderId=1?        | Läs ut specifik order via order- eller produkt Id                      |
+| POST      | /orders                         | Lägg till ny order                                                     |
+| PUT       | /orders/{id}                    | Uppdatera status för order                                             |
+| DELETE    | /orders  /{id}                  | Ta bort order                                                          |
 
 För att lägga till en ny order skickas ett en array med produkter enligt följande struktur:
 
